@@ -1,0 +1,7 @@
+.main-nav {
+	font-style: italic !important;
+
+	.active {
+		font-weight: 700;
+	}
+}
