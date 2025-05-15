@@ -1,5 +1,5 @@
-import {getPost as dbGetPost, getPosts as dbGetPosts, getPostsByType as dbGetPostsByType} from "@/app/repository/posts";
-import Post from "@/app/interfaces/post";
+import {getFullPost as dbGetPost, getPosts as dbGetPosts, getPostsByType as dbGetPostsByType} from "@/app/repository/posts";
+import {FullPost, Post} from "@/app/interfaces/post";
 
 export async function getPosts(limit = -1) {
 	const fetchedResult = await dbGetPosts(limit);
@@ -19,7 +19,7 @@ export async function getPostsByType(ptId: string) {
 	return result;
 }
 
-export async function getPost(postId: string) {
+export async function getFullPost(postId: string): Promise<FullPost | undefined> {
 	const fetchedResult = await dbGetPost(postId);
-	return fetchedResult ? fetchedResult as Post : undefined;
+	return fetchedResult ? fetchedResult as FullPost : undefined;
 }

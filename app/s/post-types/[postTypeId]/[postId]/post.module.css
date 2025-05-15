@@ -4,10 +4,21 @@
 	gap: 2rem;
 
 	.article {
+		display: flex;
 		flex-flow: column;
+		width: calc(100% - 17rem);
+
+		.article-section {
+			display: flex;
+			flex-flow: column nowrap;
+		}
 	}
 
 	.aside {
+		display: flex;
 		flex-flow: column;
+		width: 13rem;
+		padding-block-start: 5rem;
+		padding-inline-end: 2rem;
 	}
 }

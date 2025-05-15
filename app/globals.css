@@ -1,6 +1,24 @@
+:root {
+	--button-background: #4ad5ff;
+}
+
+@font-face {
+  font-family: "Cabin";
+  src:
+    local("Cabin"),
+    url("/Cabin.ttf") format("truetype")
+}
+
+
 body {
 	font-family: Cabin, sans-serif;
 }
 th, td {
 	text-align: left;
+}
+
+button {
+	padding: .5rem .75rem;
+	background: var(--button-background);
+	border: 0;
 }
