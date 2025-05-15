@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from './dashboard.module.css';
-import {getPosts, getPost} from "@/app/services/post.service";
+import {getPosts, getFullPost} from "@/app/services/post.service";
 
 export default async function DashboardPage() {
 	const posts = await getPosts(10);

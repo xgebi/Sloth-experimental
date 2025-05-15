@@ -8,11 +8,10 @@ export async function getPostTypes() {
 }
 
 export async function getPostType(postTypeId: string) {
-	console.log("abc", postTypeId);
-	const result = sql`
+	const result = await sql`
       select uuid, slug, display_name, tags_enabled, categories_enabled, archive_enabled
       from sloth_post_types WHERE uuid = ${postTypeId};
 	`;
 	console.log(result);
-	return (await result).pop();
+	return result.pop();
 }

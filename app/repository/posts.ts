@@ -11,16 +11,17 @@ export async function getPosts(limit = -1): Promise<RowList<Row[]>> {
 	`;
 }
 
-export async function getPostsByType(ptId): Promise<RowList<Row[]>> {
+export async function getPostsByType(postTypeId: string): Promise<RowList<Row[]>> {
 	return sql`
-      select title, uuid
-      from sloth_posts WHERE post_type = ${ptId};
+      select title, uuid, publish_date, update_date
+      from sloth_posts WHERE post_type = ${postTypeId}
+      order by update_date DESC;
 	`;
 }
 
 export async function getFullPost(postId: string): Promise<Row | undefined> {
 	const fetchedPost = await sql`
-    select uuid, original_lang_entry_uuid, lang, slug, post_type, author, title, content, excerpt, css, use_theme_css, js, use_theme_js, thumbnail, publish_date, update_date, post_status, post_format, imported, import_approved, password, meta_description, twitter_description, pinned,
+    select uuid, original_lang_entry_uuid, lang, slug, post_type, author, title, content, excerpt, css, use_theme_css, js, use_theme_js, thumbnail, publish_date, update_date, post_status, post_format, imported, import_approved, password, meta_description, twitter_description, pinned
     from sloth_posts WHERE uuid = ${postId};
   `;
 	const postRow = fetchedPost.pop();
@@ -28,7 +29,7 @@ export async function getFullPost(postId: string): Promise<Row | undefined> {
 	if (post) {
 		const fetchedSections = await sql`
 			select content, section_type, position from sloth_post_sections
-			where post = ${postId} sort by position;
+			where post = ${postId} order by position;
 		`;
 		if (!post.sections) {
 			post.sections = [];
@@ -36,12 +37,13 @@ export async function getFullPost(postId: string): Promise<Row | undefined> {
 		fetchedSections.forEach((section) => {
 			post.sections.push(section as PostSection)
 		});
+
 		const fetchedLibraries = await sql`
 			select library, hook_name from sloth_post_libraries
 			where post = ${postId};
 		`;
 		if (!post.libraries) {
-			post.sections = [];
+			post.libraries = [];
 		}
 		fetchedLibraries.forEach((library) => {
 			post.libraries.push(library as PostLibrary)

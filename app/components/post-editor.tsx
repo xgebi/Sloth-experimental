@@ -47,9 +47,29 @@ export default function PostEditor({ post }: PostEditorProps) {
 					<label htmlFor="slug">Slug</label>
 					<input id="slug" type="text" value={statePost.slug} onInput={updateSlug} />
 				</section>
-				<section>
-
-				</section>
+				{post.sections.map((section) => {
+					return (
+						<div key={section.position} className={styles['article-post-sections']}>
+							{section.position === 0 && <h2>Excerpt</h2>}
+							{section.position === 1 && <h2>Rest of the article</h2>}
+							<textarea value={section.content}></textarea>
+							<section className={styles['article-post-sections-actions']}>
+								<select value={section.section_type}>
+									<option value="toc">Table of Content</option>
+									<option value="text">Text</option>
+									<option value="form">Form</option>
+									<option value="image">Image</option>
+								</select>
+								<button>Change section type</button>
+							</section>
+							<section className={styles['article-post-sections-actions']}>
+								<button>▲</button>
+								<button>▼</button>
+								<button>Remove section</button>
+							</section>
+						</div>
+					)
+				})}
 			</article>
 			<aside className={styles.aside}>
 				<button onClick={wontImplement}>Publish</button>

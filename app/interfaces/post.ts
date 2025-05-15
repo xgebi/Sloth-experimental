@@ -1,6 +1,8 @@
 export interface Post {
 	title: string,
 	uuid: string,
+	publish_date: number | Date | null,
+	update_date: number | Date
 }
 
 export interface PostLibrary {

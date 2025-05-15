@@ -12,6 +12,18 @@
 			display: flex;
 			flex-flow: column nowrap;
 		}
+
+		.article-post-sections {
+			display: flex;
+			flex-flow: column;
+			width: 80ch;
+
+			.article-post-sections-actions {
+				display: flex;
+				flex-flow: row wrap;
+				gap: 1rem;
+			}
+		}
 	}
 
 	.aside {
