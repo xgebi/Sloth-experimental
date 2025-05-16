@@ -1,6 +1,6 @@
 'use client';
 
-import styles from "@/app/s/post-types/[postTypeId]/[postId]/post.module.css";
+import styles from "@/app/(app)/post-types/[postTypeId]/[postId]/post.module.css";
 import {FullPost} from "@/app/interfaces/post";
 import {SyntheticEvent, useState} from "react";
 import slug from 'slug'

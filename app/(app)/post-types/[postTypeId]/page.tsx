@@ -45,7 +45,7 @@ export default async function SettingsPage({ params }: { params: { postTypeId : 
 							<td>{post.title}</td>
 							<td>{formatDate(post.publish_date)}</td>
 							<td>{formatDate(post.update_date)}</td>
-							<td><Link href={`/s/post-types/${uuid}/${post.uuid}`}>edit</Link></td>
+							<td><Link href={`/(app)/post-types/${uuid}/${post.uuid}`}>edit</Link></td>
 						</tr>
 					))}
 					</tbody>
