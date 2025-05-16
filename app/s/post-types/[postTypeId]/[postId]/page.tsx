@@ -1,6 +1,6 @@
 import {getTaxonomyKindOfTypeByPostType} from "@/app/services/taxonomy";
 import styles from './post.module.css';
-import PostEditor from "@/app/components/post-editor";
+import {PostEditor} from "@/app/components/post-editor";
 import {createEmptyFullPost, FullPost} from "@/app/interfaces/post";
 import {getFullPost} from "@/app/services/post.service";
 type PostPageParams = Promise<{postId: string, postTypeId: string}>

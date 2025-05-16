@@ -28,7 +28,7 @@ export async function getFullPost(postId: string): Promise<Row | undefined> {
 	const post = postRow as FullPost;
 	if (post) {
 		const fetchedSections = await sql`
-			select content, section_type, position from sloth_post_sections
+			select uuid, content, section_type, position from sloth_post_sections
 			where post = ${postId} order by position;
 		`;
 		if (!post.sections) {

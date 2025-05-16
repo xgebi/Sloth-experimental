@@ -1,15 +1,37 @@
 import Link from "next/link";
 import styles from './dashboard.module.css';
-import {getPosts, getFullPost} from "@/app/services/post.service";
+import {getPosts} from "@/app/services/post.service";
 
 export default async function DashboardPage() {
 	const posts = await getPosts(10);
-	const post = await getFullPost("0799f030-4907-486e-b962-66760cb80909");
-	console.log(post);
 	return (
 		<main className={styles.main}>
 			<h1>Dashboard page</h1>
-			<Link href={"/dashboard/statistics"}>Statistics</Link>
+
+			<section className={styles.boxes}>
+				<section className={styles.card}>
+					<h2>Latest posts</h2>
+					<hr />
+					{posts.map((post) => {
+						return (
+							<article key={post.uuid}>
+								<h3>{post.title}</h3>
+							</article>
+						)
+					})}
+				</section>
+					<section className={styles.card}>
+					<h2>Last edited</h2>
+					<hr />
+					{posts.map((post) => {
+						return (
+							<article key={post.uuid}>
+								<h3>{post.title}</h3>
+							</article>
+						)
+					})}
+				</section>
+			</section>
 		</main>
 	)
 }

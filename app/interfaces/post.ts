@@ -11,6 +11,7 @@ export interface PostLibrary {
 }
 
 export interface PostSection {
+	uuid: string,
 	content: string,
 	section_type: string,
 	position: number,
