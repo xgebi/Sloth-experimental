@@ -10,9 +10,9 @@ export default async function SidePanel() {
 	return (
 		<nav className={styles["main-nav"]}>
 			<ul>
-				<li><MainNavLink href="/app/(app)/dashboard">Dashboard</MainNavLink>
+				<li><MainNavLink href="/dashboard">Dashboard</MainNavLink>
 					<ul>
-						<li><MainNavLink href="/app/(app)/dashboard/statistics">Statistics</MainNavLink></li>
+						<li><MainNavLink href="/dashboard/statistics">Statistics</MainNavLink></li>
 					</ul>
 				</li>
 				<li className={styles.open}>
@@ -20,17 +20,17 @@ export default async function SidePanel() {
 					<ul>
 						{postTypes.map((pt) => (
 										<li key={pt.uuid}>
-						<MainNavLink href={`/(app)/post-types/${pt.uuid}`}>{pt.display_name}</MainNavLink>
+						<MainNavLink href={`/post-types/${pt.uuid}`}>{pt.display_name}</MainNavLink>
 							<ul>
-								<li key={`${pt.uuid}-new`}><MainNavLink href={`/(app)/post-types/${pt.uuid}/new`}>New post</MainNavLink></li>
-								<li key={`${pt.uuid}-tax`}><MainNavLink href={`/(app)/post-types/${pt.uuid}/taxonomy`}>Taxonomy</MainNavLink></li>
-								<li key={`${pt.uuid}-formats`}><MainNavLink href={`/(app)/post-types/${pt.uuid}/post-formats`}>Post formats</MainNavLink></li>
+								<li key={`${pt.uuid}-new`}><MainNavLink href={`/post-types/${pt.uuid}/new`}>New post</MainNavLink></li>
+								<li key={`${pt.uuid}-tax`}><MainNavLink href={`/post-types/${pt.uuid}/taxonomy`}>Taxonomy</MainNavLink></li>
+								<li key={`${pt.uuid}-formats`}><MainNavLink href={`/post-types/${pt.uuid}/post-formats`}>Post formats</MainNavLink></li>
 							</ul>
 						</li>
 						))}
 					</ul>
 				</li>
-				<li><MainNavLink href="/app/(app)/settings">Settings</MainNavLink></li>
+				<li><MainNavLink href="/app/settings">Settings</MainNavLink></li>
 			</ul>
 		</nav>
 	)
