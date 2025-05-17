@@ -1,6 +1,7 @@
 import {SyntheticEvent, useState} from "react";
 import styles from './image-picker.module.css';
 import {Media} from "@/app/interfaces/media";
+import TextareaAutosize from "react-textarea-autosize";
 
 interface ImagePickerProps {
 	label: string,
@@ -22,7 +23,7 @@ export default function ImagePicker({ label, media, onPicked }: ImagePickerProps
 	});
 	const [dialogOpen, setDialogOpen] = useState(false)
 
-	function processImage() {
+	function useImage() {
 		setDialogOpen(false);
 		onPicked(image);
 	}
@@ -38,6 +39,14 @@ export default function ImagePicker({ label, media, onPicked }: ImagePickerProps
 				alt: alt ? alt.alt : '',
 			});
 		}
+	}
+
+	function updatedAlt(ev: SyntheticEvent) {
+		const value = (ev.target as HTMLTextAreaElement).value;
+		setImage({
+				...image,
+				alt: value,
+			});
 	}
 
 	function closeDialog() {
@@ -64,13 +73,25 @@ export default function ImagePicker({ label, media, onPicked }: ImagePickerProps
 						))}
 					</section>
 					<div className={styles['media-picker-actions']}>
-						<div className={styles['media-picker-header']}>
-							<h2>Chosen image</h2>
-							<div>
-								<button onClick={closeDialog}>Close</button>
+						<div>
+							<div className={styles['media-picker-header']}>
+								<h2>Chosen image</h2>
+								<div>
+									<button onClick={closeDialog}>Close</button>
+								</div>
 							</div>
+							{image.uuid.length > 0 && <>
+								<div className={styles['image-preview']}>
+									<img src={`https://www.sarahgebauer.com/${image.imageUrl}`} />
+									<label htmlFor="image-alt">Alt text</label>
+									<TextareaAutosize id="image-alt" value={image.alt} onInput={updatedAlt} />
+									<div>
+										<button onClick={useImage}>Use image and close</button>
+									</div>
+								</div>
+							</>}
 						</div>
-						<div><button onClick={processImage}>Choose and close</button></div>
+						<div><button onClick={closeDialog}>Close dialog</button></div>
 					</div>
 				</div>
 			</dialog>

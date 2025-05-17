@@ -21,19 +21,22 @@ interface PostEditorProps {
 
 export function PostEditor({post, media, libraries, categories}: PostEditorProps) {
 	const [statePost, setStatePost] = useState(post);
+	const [thumbnailData, setThumbnailData] = useState({
+		uuid: '',
+		imageUrl: '',
+		alt: ''
+	})
 
 	function wontImplement() {
 		alert("Won't implement")
 	}
 
 	function updateTitle(val: SyntheticEvent) {
-		console.log(val);
 		setStatePost({
 			...statePost,
 			title: (val.target as HTMLInputElement)['value'],
 			slug: slug((val.target as HTMLInputElement)['value'])
 		});
-		console.log(statePost);
 	}
 
 	function updateSlug(val: SyntheticEvent) {
@@ -110,7 +113,9 @@ export function PostEditor({post, media, libraries, categories}: PostEditorProps
 	}
 
 	function setThumbnail(img: ImageData): void {
-
+		console.log(img);
+		post.thumbnail = img.uuid;
+		setThumbnailData(img);
 	}
 
 	function sectionMoveUp(uuid: string) {
@@ -198,6 +203,10 @@ export function PostEditor({post, media, libraries, categories}: PostEditorProps
 					<label htmlFor="slug">Slug</label>
 					<input id="slug" type="text" value={statePost.slug} onInput={updateSlug}/>
 				</section>
+				{ thumbnailData.imageUrl && <section className={styles['thumbnail-preview']}>
+					<img src={`https://www.sarahgebauer.com/${thumbnailData.imageUrl}`}
+						alt={thumbnailData.alt} />
+				</section>}
 				<section>
 					<ImagePicker label={"Choose thumbnail"} onPicked={setThumbnail} media={media}/>
 				</section>

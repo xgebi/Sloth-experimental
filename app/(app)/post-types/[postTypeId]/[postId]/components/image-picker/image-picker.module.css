@@ -44,3 +44,9 @@
 		}
 	}
 }
+
+.image-preview {
+	display: flex;
+	flex-flow: column;
+	padding-inline-end: 1rem;
+}
