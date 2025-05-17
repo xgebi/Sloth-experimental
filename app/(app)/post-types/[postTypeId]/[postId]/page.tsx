@@ -1,9 +1,10 @@
-import {getTaxonomyKindOfTypeByPostType} from "@/app/services/taxonomy";
+import {getTaxonomyKindOfTypeByPostType} from "@/app/services/taxonomy.service";
 import styles from './post.module.css';
-import {PostEditor} from "@/app/components/post-editor";
+import {PostEditor} from "./components/post-editor";
 import {createEmptyFullPost, FullPost} from "@/app/interfaces/post";
 import {getFullPost} from "@/app/services/post.service";
 import {getMedia} from "@/app/services/media.service";
+import {getLibraries} from "@/app/services/library.service";
 type PostPageParams = Promise<{postId: string, postTypeId: string}>
 
 export default async function PostPage({ params }: { params: PostPageParams }) {
@@ -12,6 +13,7 @@ export default async function PostPage({ params }: { params: PostPageParams }) {
 	// fetch list of categories
 	const categories = await getTaxonomyKindOfTypeByPostType(postTypeId, "category");
 	// fetch list of libraries
+	const libraries = await getLibraries();
 	// fetch list of images
 	const images = await getMedia();
 	let post: FullPost = createEmptyFullPost();
@@ -24,10 +26,9 @@ export default async function PostPage({ params }: { params: PostPageParams }) {
 	} else {
 		post.uuid = "new";
 	}
-	console.log(postId);
 	return (
 		<main className={styles.main}>
-			<PostEditor post={post} media={images}/>
+			<PostEditor post={post} media={images} categories={categories} libraries={libraries}/>
 		</main>
 	)
 }

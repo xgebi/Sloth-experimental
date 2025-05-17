@@ -1,15 +1,16 @@
 'use client';
 
 import styles from "@/app/(app)/post-types/[postTypeId]/[postId]/post.module.css";
-import {FullPost, PostSection} from "@/app/interfaces/post";
+import {FullPost, PostLibrary, PostSection} from "@/app/interfaces/post";
 import {SyntheticEvent, useState} from "react";
 import slug from 'slug'
-import ImagePicker, {ImageData} from "@/app/components/image-picker/image-picker";
-import PostEditorSection from "@/app/components/post-editor-section";
+import ImagePicker, {ImageData} from "./image-picker/image-picker";
+import PostEditorSection from "./post-editor-section";
 import TextareaAutosize from "react-textarea-autosize";
 import Media from "@/app/interfaces/media";
 import Category from "@/app/interfaces/category";
 import Library from "@/app/interfaces/library";
+import LibrarySection from "./library-section";
 
 interface PostEditorProps {
 	post: FullPost,
@@ -153,6 +154,34 @@ export function PostEditor({post, media, libraries, categories}: PostEditorProps
 			...statePost,
 		});
 	}
+	
+	function removeLibrary(uuid: string) {
+		const idx = statePost.libraries.findIndex((lib) => lib.library === uuid);
+		const libraries = post.libraries;
+		console.log('before', libraries);
+		libraries.splice(idx, 1);
+		console.log('after', libraries);
+		setStatePost({
+			...statePost,
+			libraries
+		});
+	}
+	
+	function addLibrary(uuid: string, position: string) {
+		const library: PostLibrary = {
+			library: uuid,
+			hook_name: position
+		}
+		const libraries = [
+				...statePost.libraries,
+				library
+			]
+		console.log('add', library, libraries);
+		setStatePost({
+			...statePost,
+			libraries
+		})
+	}
 
 	return (
 		<>
@@ -199,6 +228,11 @@ export function PostEditor({post, media, libraries, categories}: PostEditorProps
 						Use theme&#39;s JS
 						<input type="checkbox" checked={statePost.use_theme_js} onChange={useThemeJS}/>
 					</label>
+					<LibrarySection
+						libraryList={libraries}
+						postLibraries={statePost.libraries}
+						addLibrary={addLibrary}
+						removeLibrary={removeLibrary}></LibrarySection>
 					<div>
 						<label htmlFor="js-code">Custom JavaScript</label>
 						<TextareaAutosize value={statePost.js} id="js-code" onInput={changeCustomJS} />

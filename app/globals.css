@@ -1,5 +1,8 @@
 :root {
+	--white: #fefefe;
 	--button-background: #ffc091;
+	--button-active-background: #b07549;
+	--button-danger-background: #7a0000;
 }
 
 @font-face {
@@ -26,6 +29,15 @@ button {
 	font-size: 1rem;
 }
 
+button:active {
+	background: var(--button-active-background);
+}
+
+button.danger {
+	background: var(--button-danger-background);
+	color: var(--white);
+}
+
 label {
 	font-size: 1.125rem;
 }
@@ -43,6 +55,7 @@ select {
 	border: 2px solid var(--button-background);
 	background: white;
 	border-radius: .5rem;
+	height: 2.25rem;
 }
 
 dialog {
