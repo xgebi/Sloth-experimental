@@ -6,14 +6,14 @@ import {FullPost, PostLibrary, PostSection} from "@/app/interfaces/post";
 export async function getPosts(limit = -1): Promise<RowList<Row[]>> {
 	const limitStr = limit >= 0 ? sql`LIMIT ${limit}` : sql``;
 	return sql`
-      select title
+      select title, uuid, post_type
       from sloth_posts ${limitStr};
 	`;
 }
 
 export async function getPostsByType(postTypeId: string): Promise<RowList<Row[]>> {
 	return sql`
-      select title, uuid, publish_date, update_date
+      select title, uuid, post_type, publish_date, update_date
       from sloth_posts WHERE post_type = ${postTypeId}
       order by update_date DESC;
 	`;

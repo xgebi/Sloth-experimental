@@ -1,5 +1,5 @@
 :root {
-	--button-background: #4ad5ff;
+	--button-background: #76ddff;
 }
 
 @font-face {
@@ -21,4 +21,5 @@ button {
 	padding: .5rem .75rem;
 	background: var(--button-background);
 	border: 0;
+	border-radius: .5rem;
 }

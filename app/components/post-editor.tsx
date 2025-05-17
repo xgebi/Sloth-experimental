@@ -1,11 +1,12 @@
 'use client';
 
 import styles from "@/app/(app)/post-types/[postTypeId]/[postId]/post.module.css";
-import {FullPost} from "@/app/interfaces/post";
-import {SyntheticEvent, useEffect, useState} from "react";
+import {FullPost, PostSection} from "@/app/interfaces/post";
+import {SyntheticEvent, useState} from "react";
 import slug from 'slug'
 import ImagePicker, {ImageData} from "@/app/components/image-picker";
 import PostEditorSection from "@/app/components/post-editor-section";
+import TextareaAutosize from "react-textarea-autosize";
 
 interface PostEditorProps {
 	post: FullPost,
@@ -13,14 +14,6 @@ interface PostEditorProps {
 
 export function PostEditor({post}: PostEditorProps) {
 	const [statePost, setStatePost] = useState(post);
-	const [caretPosition, setCaretPosition] = useState({
-		offset: -1,
-		element: "",
-	});
-	useEffect(() => {
-		console.log('abc', caretPosition.element);
-		// caretPosition.element!.setSelectionRange(caretPosition.offset, caretPosition.offset);
-	}, [caretPosition]);
 
 	function wontImplement() {
 		alert("Won't implement")
@@ -113,6 +106,48 @@ export function PostEditor({post}: PostEditorProps) {
 
 	}
 
+	function sectionMoveUp(uuid: string) {
+		const index = statePost.sections.findIndex((section) => section.uuid === uuid);
+		const sections = statePost.sections;
+		if (index > 0) {
+			// [arr[0], arr[1]] = [arr[1], arr[0]];
+			const originalPosition = statePost.sections[index].position;
+			sections[index].position = originalPosition - 1;
+			sections[index - 1].position = originalPosition;
+		}
+		sections.sort((a: PostSection, b: PostSection)=> a.position - b.position);
+		setStatePost({
+			...statePost,
+		});
+	}
+
+	function sectionMoveDown(uuid: string) {
+		const index = statePost.sections.findIndex((section) => section.uuid === uuid);
+		const sections = statePost.sections;
+		if (index < sections.length - 1) {
+			// [arr[0], arr[1]] = [arr[1], arr[0]];
+			const originalPosition = statePost.sections[index].position;
+			sections[index + 1].position = originalPosition;
+			sections[index].position = originalPosition + 1;
+		}
+		sections.sort((a: PostSection, b: PostSection)=> a.position - b.position);
+		setStatePost({
+			...statePost,
+		});
+	}
+
+	function deleteSection(uuid: string) {
+		const index = statePost.sections.findIndex((section) => section.uuid === uuid);
+		const sections = statePost.sections;
+		sections.splice(index, 1);
+		sections.forEach((section, index) => {
+			section.position = index;
+		});
+		setStatePost({
+			...statePost,
+		});
+	}
+
 	return (
 		<>
 			<article className={styles.article}>
@@ -137,34 +172,35 @@ export function PostEditor({post}: PostEditorProps) {
 							section={section}
 							onSectionTypeUpdated={changeSectionType}
 							onSectionContentUpdated={updateSection}
-							onMoveUp={() => {}}
-							onMoveDown={() => {}}
-							onDelete={() => {}}></PostEditorSection>
+							onMoveUp={sectionMoveUp}
+							onMoveDown={sectionMoveDown}
+							onDelete={deleteSection}></PostEditorSection>
 					))}
-				<section>
+				<section className={styles["article-section"]}>
 					<label>
 						Use theme&#39;s CSS
 						<input type="checkbox" checked={statePost.use_theme_css} onChange={useThemeCSS}/>
 					</label>
 					<label htmlFor="css-code">Custom CSS</label>
-					<textarea value={statePost.css} id="css-code" onInput={changeCustomCSS}></textarea>
+					<TextareaAutosize value={statePost.css} id="css-code" onInput={changeCustomCSS} />
 				</section>
-				<section>
+				<section className={styles["article-section"]}>
 					<label>
 						Use theme&#39;s JS
 						<input type="checkbox" checked={statePost.use_theme_js} onChange={useThemeJS}/>
 					</label>
 					<label htmlFor="js-code">Custom JavaScript</label>
-					<textarea value={statePost.js} id="js-code" onInput={changeCustomJS}></textarea>
+					<TextareaAutosize value={statePost.js} id="js-code" onInput={changeCustomJS} />
 				</section>
 				<h2>SEO</h2>
-				<section>
+				<section className={styles["article-section"]}>
 					<label htmlFor="meta-desc">Meta description</label>
-					<textarea value={statePost.meta_description} id="meta-desc" onInput={changeMetaDescription}></textarea>
+					<TextareaAutosize value={statePost.meta_description ? statePost.meta_description : ''} id="meta-desc" onInput={changeMetaDescription} />
+
 				</section>
-				<section>
+				<section className={styles["article-section"]}>
 					<label htmlFor="social-desc">Social description</label>
-					<textarea value={statePost.twitter_description} id="social-desc" onInput={changeSocialDescription}></textarea>
+					<TextareaAutosize value={statePost.twitter_description ? statePost.twitter_description : ''} id="social-desc" onInput={changeSocialDescription} />
 				</section>
 			</article>
 			<aside className={styles.aside}>

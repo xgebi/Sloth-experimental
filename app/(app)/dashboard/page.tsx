@@ -15,7 +15,7 @@ export default async function DashboardPage() {
 					{posts.map((post) => {
 						return (
 							<article key={post.uuid}>
-								<h3>{post.title}</h3>
+								<h3><a href={`/post-types/${post.post_type}/${post.uuid}`}>{post.title}</a></h3>
 							</article>
 						)
 					})}

@@ -1,6 +1,7 @@
 export interface Post {
 	title: string,
 	uuid: string,
+	post_type: string,
 	publish_date: number | Date | null,
 	update_date: number | Date
 }
