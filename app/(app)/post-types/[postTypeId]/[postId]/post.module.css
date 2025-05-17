@@ -86,5 +86,26 @@
 		width: 20rem;
 		padding-block-start: 7rem;
 		padding-inline-end: 2rem;
+		gap: 1rem;
+
+		.aside-input {
+			width: calc(100% - 1rem - 4px);
+		}
+
+		.category-box-wrapper {
+			h2 {
+				margin: 0;
+			}
+
+			.category-box {
+				height: 20rem;
+				overflow: scroll;
+
+				ul {
+					list-style: none;
+					padding: 0;
+				}
+			}
+		}
 	}
 }

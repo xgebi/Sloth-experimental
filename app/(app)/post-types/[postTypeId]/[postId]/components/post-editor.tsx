@@ -312,7 +312,16 @@ export function PostEditor({post, media, libraries, categories}: PostEditorProps
 					<button onClick={wontImplement}>Update</button>
 				</>}
 
-				<button onClick={wontImplement}>Delete</button>
+				<section className={styles['category-box-wrapper']}>
+					<h2>Categories</h2>
+					<div className={styles['category-box']}>
+						<ul>
+							<li><input type="checkbox" data-catid="abc" id={`category-abc`} /><label htmlFor={`category-abc`}>Abc</label></li>
+						</ul>
+					</div>
+				</section>
+
+				<button onClick={wontImplement} className="danger">Delete</button>
 			</aside>
 		</>
 	)

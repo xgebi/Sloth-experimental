@@ -1,6 +1,5 @@
 import {SyntheticEvent, useState} from "react";
-import Library from "@/app/interfaces/library";
-import {PostLibrary} from "@/app/interfaces/post";
+import styles from '../post.module.css';
 
 interface ProtectedSectionProps {
 	passedPassword: string,
@@ -27,10 +26,10 @@ export default function ProtectedSection({ passedPassword, passwordUpdated }: Pr
 	return (
 		<>
 			<button onClick={changeProtectedState}>{protectedPost ? "Cancel protection" : "Change to protected"}</button>
-			{protectedPost && <>
+			{protectedPost && <div>
 				<label htmlFor="password-post">Password for post:</label>
-				<input type="text" id="password-post" value={password} onInput={updatePassword} />
-			</>}
+				<input type="text" id="password-post" value={password} onInput={updatePassword} className={styles['aside-input']} />
+			</div>}
 		</>
 	)
 }
