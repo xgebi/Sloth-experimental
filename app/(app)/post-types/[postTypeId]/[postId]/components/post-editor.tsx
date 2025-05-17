@@ -7,7 +7,7 @@ import slug from 'slug'
 import ImagePicker, {ImageData} from "./image-picker/image-picker";
 import PostEditorSection from "./post-editor-section";
 import TextareaAutosize from "react-textarea-autosize";
-import Media from "@/app/interfaces/media";
+import {Media} from "@/app/interfaces/media";
 import Category from "@/app/interfaces/category";
 import Library from "@/app/interfaces/library";
 import LibrarySection from "./library-section";

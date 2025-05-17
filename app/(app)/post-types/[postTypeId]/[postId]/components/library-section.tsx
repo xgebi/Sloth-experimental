@@ -1,9 +1,7 @@
 import styles from "@/app/(app)/post-types/[postTypeId]/[postId]/post.module.css";
 import {SyntheticEvent, useState} from "react";
-import {FullPost, PostLibrary} from "@/app/interfaces/post";
-import Media from "@/app/interfaces/media";
+import {PostLibrary} from "@/app/interfaces/post";
 import Library from "@/app/interfaces/library";
-import Category from "@/app/interfaces/category";
 
 interface LibrarySectionProps {
 	libraryList: Library[],
