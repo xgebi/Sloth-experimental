@@ -8,7 +8,6 @@ interface LibrarySectionProps {
 	postLibraries: PostLibrary[],
 	addLibrary: (uuid: string, position: string) => void,
 	removeLibrary: (uuid: string) => void
-
 }
 
 export default function LibrarySection({ libraryList, postLibraries, addLibrary, removeLibrary }: LibrarySectionProps) {

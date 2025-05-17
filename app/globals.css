@@ -56,6 +56,8 @@ select {
 	background: white;
 	border-radius: .5rem;
 	height: 2.25rem;
+	font-family: Cabin, sans-serif;
+	font-size: 1rem;
 }
 
 dialog {

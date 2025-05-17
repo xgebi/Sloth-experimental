@@ -1,6 +1,6 @@
 import SidePanel from "@/app/components/side-panel/side-panel";
 import React from "react";
-import styles from './s.module.css';
+import styles from './app.module.css';
 
 export default function SlothLayout({
   children,

@@ -11,6 +11,7 @@ import {Media} from "@/app/interfaces/media";
 import Category from "@/app/interfaces/category";
 import Library from "@/app/interfaces/library";
 import LibrarySection from "./library-section";
+import ProtectedSection from "@/app/(app)/post-types/[postTypeId]/[postId]/components/protected-section";
 
 interface PostEditorProps {
 	post: FullPost,
@@ -25,7 +26,7 @@ export function PostEditor({post, media, libraries, categories}: PostEditorProps
 		uuid: '',
 		imageUrl: '',
 		alt: ''
-	})
+	});
 
 	function wontImplement() {
 		alert("Won't implement")
@@ -188,6 +189,31 @@ export function PostEditor({post, media, libraries, categories}: PostEditorProps
 		})
 	}
 
+	function updatePassword(password: string) {
+		setStatePost({
+			...statePost,
+			password
+		})
+	}
+
+	function updatePinStatus() {
+		setStatePost({
+			...statePost,
+			pinned: !statePost.pinned
+		})
+	}
+	
+	function changePublishTime(ev: SyntheticEvent) {
+		console.log((ev.target as HTMLInputElement).value);
+		if (statePost.publish_date) {
+			console.log(statePost)
+		}
+	}
+	
+	function changePublishDate(ev: SyntheticEvent) {
+		console.log((ev.target as HTMLInputElement).value);
+	}
+
 	return (
 		<>
 			<article className={styles.article}>
@@ -259,7 +285,34 @@ export function PostEditor({post, media, libraries, categories}: PostEditorProps
 				</section>
 			</article>
 			<aside className={styles.aside}>
-				<button onClick={wontImplement}>Publish</button>
+				<div>
+					Current post status: {statePost.post_status}
+				</div>
+				<div>
+					<input type="checkbox" checked={statePost.pinned} onChange={updatePinStatus} id="pinned-checkbox" /> <label htmlFor="pinned-checkbox">Pin this post</label>
+				</div>
+				{statePost.post_status === 'draft' && <>
+					<section>
+						<label htmlFor="publish-time"></label>
+						<input id="publish-time" type="time" value={statePost.publish_date} onInput={changePublishTime} />
+					</section>
+					<section>
+						<label htmlFor="publish-date"></label>
+						<input id="publish-date" type="date" value={statePost.publish_date} onInput={changePublishDate} />
+					</section>
+				</>}
+				<ProtectedSection passedPassword={statePost.password} passwordUpdated={updatePassword} />
+				{statePost.post_status === 'draft' && <>
+					<button onClick={wontImplement}>Publish</button>
+				</>}
+				{statePost.post_status === 'published' && <>
+					<button onClick={wontImplement}>Update</button>
+				</>}
+				{statePost.post_status === 'protected' && <>
+					<button onClick={wontImplement}>Update</button>
+				</>}
+
+				<button onClick={wontImplement}>Delete</button>
 			</aside>
 		</>
 	)

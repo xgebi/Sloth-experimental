@@ -25,6 +25,7 @@ export default async function PostPage({ params }: { params: PostPageParams }) {
 		// fetch tags & categories
 	} else {
 		post.uuid = "new";
+		post.post_status = "draft";
 	}
 	return (
 		<main className={styles.main}>
