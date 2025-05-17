@@ -4,15 +4,21 @@ import styles from "@/app/(app)/post-types/[postTypeId]/[postId]/post.module.css
 import {FullPost, PostSection} from "@/app/interfaces/post";
 import {SyntheticEvent, useState} from "react";
 import slug from 'slug'
-import ImagePicker, {ImageData} from "@/app/components/image-picker";
+import ImagePicker, {ImageData} from "@/app/components/image-picker/image-picker";
 import PostEditorSection from "@/app/components/post-editor-section";
 import TextareaAutosize from "react-textarea-autosize";
+import Media from "@/app/interfaces/media";
+import Category from "@/app/interfaces/category";
+import Library from "@/app/interfaces/library";
 
 interface PostEditorProps {
 	post: FullPost,
+	media: Media[],
+	libraries: Library[],
+	categories: Category[]
 }
 
-export function PostEditor({post}: PostEditorProps) {
+export function PostEditor({post, media, libraries, categories}: PostEditorProps) {
 	const [statePost, setStatePost] = useState(post);
 
 	function wontImplement() {
@@ -164,41 +170,47 @@ export function PostEditor({post}: PostEditorProps) {
 					<input id="slug" type="text" value={statePost.slug} onInput={updateSlug}/>
 				</section>
 				<section>
-					<ImagePicker label={"Choose thumbnail"} onPicked={setThumbnail} />
+					<ImagePicker label={"Choose thumbnail"} onPicked={setThumbnail} media={media}/>
 				</section>
-				{post.sections.map((section) => (
-						<PostEditorSection
-							key={section.uuid}
-							section={section}
-							onSectionTypeUpdated={changeSectionType}
-							onSectionContentUpdated={updateSection}
-							onMoveUp={sectionMoveUp}
-							onMoveDown={sectionMoveDown}
-							onDelete={deleteSection}></PostEditorSection>
-					))}
+				<div className={styles['sections-wrapper']}>
+					{post.sections.map((section) => (
+							<PostEditorSection
+								key={section.uuid}
+								section={section}
+								onSectionTypeUpdated={changeSectionType}
+								onSectionContentUpdated={updateSection}
+								onMoveUp={sectionMoveUp}
+								onMoveDown={sectionMoveDown}
+								onDelete={deleteSection}></PostEditorSection>
+						))}
+				</div>
 				<section className={styles["article-section"]}>
 					<label>
 						Use theme&#39;s CSS
 						<input type="checkbox" checked={statePost.use_theme_css} onChange={useThemeCSS}/>
 					</label>
-					<label htmlFor="css-code">Custom CSS</label>
-					<TextareaAutosize value={statePost.css} id="css-code" onInput={changeCustomCSS} />
+					<div>
+						<label htmlFor="css-code">Custom CSS</label>
+						<TextareaAutosize value={statePost.css} id="css-code" onInput={changeCustomCSS} />
+					</div>
 				</section>
 				<section className={styles["article-section"]}>
 					<label>
 						Use theme&#39;s JS
 						<input type="checkbox" checked={statePost.use_theme_js} onChange={useThemeJS}/>
 					</label>
-					<label htmlFor="js-code">Custom JavaScript</label>
-					<TextareaAutosize value={statePost.js} id="js-code" onInput={changeCustomJS} />
+					<div>
+						<label htmlFor="js-code">Custom JavaScript</label>
+						<TextareaAutosize value={statePost.js} id="js-code" onInput={changeCustomJS} />
+					</div>
 				</section>
 				<h2>SEO</h2>
-				<section className={styles["article-section"]}>
+				<section className={styles["article-section-description"]}>
 					<label htmlFor="meta-desc">Meta description</label>
 					<TextareaAutosize value={statePost.meta_description ? statePost.meta_description : ''} id="meta-desc" onInput={changeMetaDescription} />
 
 				</section>
-				<section className={styles["article-section"]}>
+				<section className={styles["article-section-description"]}>
 					<label htmlFor="social-desc">Social description</label>
 					<TextareaAutosize value={statePost.twitter_description ? statePost.twitter_description : ''} id="social-desc" onInput={changeSocialDescription} />
 				</section>

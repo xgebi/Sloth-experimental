@@ -6,9 +6,22 @@
 	.article {
 		display: flex;
 		flex-flow: column;
-		width: calc(100% - 17rem);
+		width: 62rem;
+		gap: 1rem;
+
+		.sections-wrapper {
+			display: flex;
+			flex-flow: column;
+			gap: 1.5rem;
+		}
 
 		.article-section {
+			gap: .5rem;
+		}
+
+		.article-section,
+		.article-section > div,
+		.article-section-description {
 			display: flex;
 			flex-flow: column nowrap;
 		}
@@ -16,12 +29,23 @@
 		.article-post-sections {
 			display: flex;
 			flex-flow: column;
-			width: 80ch;
+			gap: .5rem;
+
+			h2 {
+				margin: 0;
+			}
 
 			.article-post-sections-actions {
 				display: flex;
 				flex-flow: row wrap;
-				gap: 1rem;
+				gap: .5rem;
+				justify-content: space-between;
+
+				section {
+					display: flex;
+					flex-flow: row wrap;
+					gap: .5rem;
+				}
 			}
 		}
 	}
@@ -29,8 +53,8 @@
 	.aside {
 		display: flex;
 		flex-flow: column;
-		width: 13rem;
-		padding-block-start: 5rem;
+		width: 20rem;
+		padding-block-start: 7rem;
 		padding-inline-end: 2rem;
 	}
 }

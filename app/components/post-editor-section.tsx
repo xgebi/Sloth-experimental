@@ -15,7 +15,7 @@ export default function PostEditorSection({ section, onSectionTypeUpdated, onSec
 	function localOnSectionTypeUpdated(ev: SyntheticEvent) {
 		const type = ((ev.target as HTMLElement).previousElementSibling as HTMLSelectElement).value;
 		onSectionTypeUpdated(section.uuid, type);
-	};
+	}
 
 	function tempChange(ev: SyntheticEvent) {
 		onSectionContentUpdated(section.uuid, (ev.target as HTMLInputElement).value || "");
@@ -37,19 +37,21 @@ export default function PostEditorSection({ section, onSectionTypeUpdated, onSec
 			{section.position === 1 && <h2>Rest of the article</h2>}
 			{section.section_type === "text" && <TextareaAutosize value={section.content} onInput={tempChange}/>}
 			{section.section_type === "form" && <input type="text" value={section.content} onInput={tempChange} />}
-			<section className={styles['article-post-sections-actions']}>
-				<select defaultValue={section.section_type}>
-					<option value="toc">Table of Content</option>
-					<option value="text">Text</option>
-					<option value="form">Form</option>
-					<option value="image">Image</option>
-				</select>
-				<button onClick={localOnSectionTypeUpdated}>Change section type</button>
-			</section>
-			<section className={styles['article-post-sections-actions']}>
-				<button onClick={localOnMoveUp}>▲</button>
-				<button onClick={localOnMoveDown}>▼</button>
-				<button onClick={localOnDelete}>Remove section</button>
-			</section>
+			<div className={styles['article-post-sections-actions']}>
+				<section>
+					<select defaultValue={section.section_type}>
+						<option value="toc">Table of Content</option>
+						<option value="text">Text</option>
+						<option value="form">Form</option>
+						<option value="image">Image</option>
+					</select>
+					<button onClick={localOnSectionTypeUpdated}>Change section type</button>
+				</section>
+				<section>
+					<button onClick={localOnMoveUp}>▲</button>
+					<button onClick={localOnMoveDown}>▼</button>
+					<button onClick={localOnDelete}>Remove section</button>
+				</section>
+			</div>
 		</div>)
 }

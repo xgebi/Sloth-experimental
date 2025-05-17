@@ -1,0 +1,13 @@
+.media-picker-wrapper {
+	display: flex;
+	flex-flow: row wrap;
+	gap: 1rem;
+	max-width: 80vw;
+
+	& > article {
+		img {
+			max-width: 10rem;
+			max-height: 10rem;
+		}
+	}
+}

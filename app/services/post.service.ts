@@ -1,4 +1,4 @@
-import {getFullPost as dbGetPost, getPosts as dbGetPosts, getPostsByType as dbGetPostsByType} from "@/app/repository/posts";
+import {getFullPost as dbGetPost, getPosts as dbGetPosts, getPostsByType as dbGetPostsByType} from "@/app/repository/posts.repository";
 import {FullPost, Post} from "@/app/interfaces/post";
 
 export async function getPosts(limit = -1) {

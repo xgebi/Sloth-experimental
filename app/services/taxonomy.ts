@@ -1,6 +1,6 @@
 
 import {Row, RowList} from "postgres";
-import { getTaxonomyByPostType as dbGetTaxonomyByPostType, getTaxonomyKindOfTypeByPostType as dbGetTaxonomyKindOfTypeByPostType } from '../repository/taxonomy'
+import { getTaxonomyByPostType as dbGetTaxonomyByPostType, getTaxonomyKindOfTypeByPostType as dbGetTaxonomyKindOfTypeByPostType } from '../repository/taxonomy.repository'
 import Post from "@/app/interfaces/post";
 import Taxonomy from "@/app/interfaces/taxonomy";
 

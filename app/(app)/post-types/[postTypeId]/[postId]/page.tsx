@@ -3,6 +3,7 @@ import styles from './post.module.css';
 import {PostEditor} from "@/app/components/post-editor";
 import {createEmptyFullPost, FullPost} from "@/app/interfaces/post";
 import {getFullPost} from "@/app/services/post.service";
+import {getMedia} from "@/app/services/media.service";
 type PostPageParams = Promise<{postId: string, postTypeId: string}>
 
 export default async function PostPage({ params }: { params: PostPageParams }) {
@@ -11,6 +12,8 @@ export default async function PostPage({ params }: { params: PostPageParams }) {
 	// fetch list of categories
 	const categories = await getTaxonomyKindOfTypeByPostType(postTypeId, "category");
 	// fetch list of libraries
+	// fetch list of images
+	const images = await getMedia();
 	let post: FullPost = createEmptyFullPost();
 	if (postId.toLocaleLowerCase() !== "new") {
 		const fetchedPost = await getFullPost(postId);
@@ -24,7 +27,7 @@ export default async function PostPage({ params }: { params: PostPageParams }) {
 	console.log(postId);
 	return (
 		<main className={styles.main}>
-			<PostEditor post={post}/>
+			<PostEditor post={post} media={images}/>
 		</main>
 	)
 }
